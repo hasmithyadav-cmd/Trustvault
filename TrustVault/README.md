@@ -146,3 +146,5 @@ The current project is SQLite-first and is not automatically configured for Post
 ## Challenge documentation
 
 See `THREATS.md` for the threat model and `PROMPTS.md` for an honest AI-use log. Update `PROMPTS.md` with the actual prompts, dates, AI outputs, mistakes, and your own verification/fixes as you work. Do not claim checks you have not personally run.
+
+See [RENDER_DEPLOY.md](RENDER_DEPLOY.md) for the current Render setup, including first-admin bootstrapping and storage limitations.

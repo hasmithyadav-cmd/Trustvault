@@ -326,6 +326,46 @@ def create_app(test_config=None):
         db.create_all()
         print("Database tables created.")
 
+    @app.cli.command("bootstrap-admin")
+    def bootstrap_admin_command():
+        """Create the first admin from deployment environment variables.
+
+        Safe to run on every startup: if an admin already exists, it does nothing.
+        """
+        email = os.environ.get("BOOTSTRAP_ADMIN_EMAIL", "").strip().lower()
+        name = os.environ.get("BOOTSTRAP_ADMIN_NAME", "").strip()
+        password = os.environ.get("BOOTSTRAP_ADMIN_PASSWORD", "")
+
+        if not email or not name or len(password) < 12:
+            raise SystemExit(
+                "Set BOOTSTRAP_ADMIN_EMAIL, BOOTSTRAP_ADMIN_NAME, and "
+                "BOOTSTRAP_ADMIN_PASSWORD (at least 12 characters)."
+            )
+
+        existing_admin = db.session.scalar(
+            select(User).where(User.role == "admin")
+        )
+        if existing_admin:
+            print("An administrator already exists; bootstrap skipped.")
+            return
+
+        user = db.session.scalar(select(User).where(User.email == email))
+        if user:
+            user.name = name
+            user.password_hash = User.hash_password(password)
+            user.role = "admin"
+        else:
+            user = User(
+                name=name,
+                email=email,
+                password_hash=User.hash_password(password),
+                role="admin",
+            )
+            db.session.add(user)
+
+        db.session.commit()
+        print("Initial administrator account created.")
+
     @app.cli.command("create-admin")
     def create_admin_command():
         import getpass
