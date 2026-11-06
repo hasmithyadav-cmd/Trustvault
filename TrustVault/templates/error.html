@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}{{ code }} · TrustVault{% endblock %}
+{% block content %}
+<div class="empty-state error-state"><div class="empty-symbol">{{ code }}</div><h1>Request blocked</h1><p>{{ message }}</p><a class="button secondary" href="{{ url_for('dashboard') if current_user.is_authenticated else url_for('index') }}">Return</a></div>
+{% endblock %}

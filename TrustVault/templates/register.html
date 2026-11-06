@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Create account · TrustVault{% endblock %}
+{% block content %}
+<div class="auth-wrap"><section class="auth-card">
+  <div class="eyebrow">START SECURELY</div><h1>Create account</h1><p class="muted">New accounts begin with Viewer access. Owners can share documents with you.</p>
+  <form method="post">
+    {{ form.hidden_tag() }}
+    <label>{{ form.name.label }}{{ form.name(placeholder="Your name", autocomplete="name") }}</label>
+    <label>{{ form.email.label }}{{ form.email(placeholder="you@example.com", autocomplete="email") }}</label>
+    <label>{{ form.password.label }}{{ form.password(placeholder="At least 10 characters", autocomplete="new-password") }}</label>
+    <label>{{ form.confirm_password.label }}{{ form.confirm_password(placeholder="Repeat password", autocomplete="new-password") }}</label>
+    {{ form.submit(class_="button primary full") }}
+  </form>
+  <p class="auth-foot">Already registered? <a href="{{ url_for('login') }}">Sign in</a></p>
+</section></div>
+{% endblock %}

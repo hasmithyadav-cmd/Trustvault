@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · TrustVault{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <div><div class="eyebrow">YOUR WORKSPACE</div><h1>Documents</h1><p class="muted">Welcome, {{ current_user.name }}. Manage files you own and files shared with you.</p></div>
+  {% if current_user.role in ['owner', 'admin'] %}<a class="button primary" href="{{ url_for('upload') }}">＋ Upload document</a>{% endif %}
+</div>
+{% if documents %}
+<div class="document-grid">
+  {% for doc in documents %}
+  <a class="document-card" href="{{ url_for('document_detail', document_id=doc.id) }}">
+    <div class="doc-card-top"><span class="file-icon">{{ doc.original_name.rsplit('.', 1)[-1][:4]|upper }}</span><span class="arrow">↗</span></div>
+    <h3>{{ doc.original_name }}</h3><p>{{ (doc.size_bytes / 1024)|round(1) }} KB · {{ doc.created_at.strftime('%d %b %Y') }}</p>
+    <div class="doc-owner">Owner: {{ doc.owner.name }}</div>
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty-state"><div class="empty-symbol">▤</div><h2>No documents yet</h2><p>When you upload a document or someone shares one with you, it will appear here.</p>
+{% if current_user.role in ['owner', 'admin'] %}<a class="button primary" href="{{ url_for('upload') }}">Upload your first document</a>{% endif %}</div>
+{% endif %}
+{% endblock %}

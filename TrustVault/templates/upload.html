@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Upload · TrustVault{% endblock %}
+{% block content %}
+<div class="narrow-page">
+  <a class="back-link" href="{{ url_for('dashboard') }}">← Back to dashboard</a>
+  <div class="eyebrow">ADD TO YOUR VAULT</div><h1>Upload a document</h1>
+  <p class="muted">Maximum size 10 MB. Allowed formats: PDF, PNG, JPG, TXT and DOCX.</p>
+  <section class="panel">
+    <form method="post" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+      <label class="upload-drop">{{ form.file() }}<span>Choose a file from your device</span></label>
+      {{ form.submit(class_="button primary") }}
+    </form>
+  </section>
+  <p class="small-note">Files are stored outside the public static directory and are delivered only after server-side authorization.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}TrustVault — Share with confidence{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow">PRIVATE FILES. EXPLICIT ACCESS.</div>
+    <h1>Your documents.<br><span>Your rules.</span></h1>
+    <p class="lead">Share sensitive documents with the right people, control what they can do, and keep a verifiable record of important activity.</p>
+    <div class="hero-actions">
+      <a class="button primary" href="{{ url_for('register') }}">Get started</a>
+      <a class="button secondary" href="{{ url_for('login') }}">Sign in</a>
+    </div>
+    <div class="trust-note"><span class="status-dot"></span> Permission checks happen on the server</div>
+  </div>
+  <div class="hero-card">
+    <div class="card-top"><span>ACCESS CONTROL</span><span class="live-tag">● ACTIVE</span></div>
+    <div class="file-row"><div class="file-icon">PDF</div><div><strong>Project-brief.pdf</strong><small>Shared document</small></div><span class="lock">⌑</span></div>
+    <div class="access-line"><span>Alex Morgan</span><span class="permission view">View only</span></div>
+    <div class="access-line"><span>Jordan Lee</span><span class="permission download">View + download</span></div>
+    <div class="audit-preview"><div class="audit-check">✓</div><div><strong>Activity recorded</strong><small>Permission updated · just now</small></div></div>
+  </div>
+</section>
+<section class="feature-grid">
+  <article><div class="feature-icon">◈</div><h3>Share deliberately</h3><p>Grant access to a specific account instead of exposing a public file URL.</p></article>
+  <article><div class="feature-icon">⌁</div><h3>Revoke access</h3><p>Remove a user's permission so their next server request is denied.</p></article>
+  <article><div class="feature-icon">≋</div><h3>Track activity</h3><p>Record key events in a hash-linked audit trail that can be checked for tampering.</p></article>
+</section>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Admin · TrustVault{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">SYSTEM OVERSIGHT</div><h1>Admin console</h1><p class="muted">User directory and recent security events.</p></div>
+<span class="chain-status {{ 'good' if chain_ok else 'bad' }}">{{ '✓ Audit chain valid' if chain_ok else '⚠ Audit chain failed verification' }}</span></div>
+<section class="panel"><h2>Users</h2><div class="table-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Created</th></tr></thead><tbody>
+{% for user in users %}<tr><td>{{ user.name }}</td><td>{{ user.email }}</td><td><span class="role-pill">{{ user.role }}</span></td><td>{{ user.created_at.strftime('%d %b %Y') }}</td></tr>{% endfor %}
+</tbody></table></div></section>
+<section class="panel"><h2>Recent audit events</h2><div class="table-wrap"><table><thead><tr><th>Time</th><th>Actor ID</th><th>Action</th><th>Document</th><th>Details</th></tr></thead><tbody>
+{% for log in logs %}<tr><td>{{ log.timestamp.strftime('%d %b %H:%M:%S') }}</td><td>{{ log.actor_id or 'System' }}</td><td><code>{{ log.action }}</code></td><td>{{ log.document_id or '—' }}</td><td>{{ log.detail }}</td></tr>{% endfor %}
+</tbody></table></div></section>
+{% endblock %}
